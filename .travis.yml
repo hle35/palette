@@ -7,6 +7,10 @@ env:
   - LUA="lua=5.2"
   - LUA="lua=5.3"
 
+matrix:
+  allow_failures:
+    - LUA: lua=5.3
+
 before_install:
   - pip install hererocks
   - hererocks lua_install -r^ --$LUA # --compat=none

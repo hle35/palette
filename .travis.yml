@@ -21,6 +21,8 @@ install:
 script:
   - luacheck --std max+busted src/
   - busted --verbose --coverage --pattern="-test.lua" --recursive src/
+  - cosy-tool  cosy/tool/graphinfo        --graph=cosy/tool/graphinfo-test
+  - cosy-tool  cosy/tool/graphinfo-binary --graph=cosy/tool/graphinfo-test
 
 after_success:
   - luacov-coveralls --exclude "test" --exclude "lua_install"

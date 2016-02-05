@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/CosyVerif/tool-graphinfo.svg?branch=master)](https://travis-ci.org/CosyVerif/tool-graphinfo)
+[![Coverage Status](https://coveralls.io/repos/CosyVerif/tool-graphinfo/badge.svg?branch=master&service=github)](https://coveralls.io/github/CosyVerif/tool-graphinfo?branch=master)
+[![Join the chat at https://gitter.im/CosyVerif/tool-graphinfo](https://badges.gitter.im/CosyVerif/tool-graphinfo.svg)](https://gitter.im/CosyVerif/tool-graphinfo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # Graph info in CosyVerif
 
 This repository provides a small tool to compute the number of vertices and

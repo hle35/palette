@@ -39,6 +39,8 @@ return function (Layer)
     for _ in pairs (model.edges) do
       model.nb_edges = model.nb_edges+1
     end
+    print ("#vertices:", model.nb_vertices)
+    print ("#edges   :", model.nb_edges   )
   end
 
 end

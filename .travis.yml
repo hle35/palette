@@ -6,6 +6,11 @@ sudo: false
 env:
   - LUA="lua=5.2"
 
+addons:
+  apt:
+    packages:
+    - libev-dev
+
 before_install:
   - pip install hererocks
   - hererocks lua_install -r^ --$LUA # --compat=none
@@ -16,6 +21,7 @@ install:
   - luarocks install busted
   - luarocks install luacov
   - luarocks install luacov-coveralls
+  - luarocks install copas-ev
   - luarocks make rockspec/*-master-1.rockspec
 
 script:

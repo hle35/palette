@@ -43,4 +43,6 @@ return function (Layer)
     print ("#edges   :", model.nb_edges   )
   end
 
+  return graphinfo
+
 end

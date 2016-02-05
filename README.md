@@ -67,3 +67,15 @@ Results are usually put within the tool model.
 ## How to write a tool
 
 To write a tool wrapper, start by forking this repository.
+
+A tool is represented in CosyVerif using a formalism that refines the
+`cosy/formalism/tool` one
+([defined here](https://github.com/CosyVerif/formalisms/blob/master/src/cosy/formalism/tool/init.lua)).
+To learn more on formalisms, consult their
+[README](https://github.com/CosyVerif/formalisms).
+
+A cosy tool describes is basically a textual description of its purpose
+and its parameter(s), each one with a name, a description, an optional default
+value and a type.
+The type is either a string corresponding to a Lua type ("string", "number",
+"boolean", "function") or a reference to another formalism.

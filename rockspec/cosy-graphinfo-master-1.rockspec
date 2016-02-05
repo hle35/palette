@@ -20,6 +20,8 @@ dependencies = {
 build = {
   type    = "builtin",
   modules = {
-    ["cosy.tool.graphinfo"] = "src/cosy/tool/graphingo.lua",
+    ["cosy.tool.graphinfo"       ] = "src/cosy/tool/graphinfo.lua",
+    ["cosy.tool.graphinfo-binary"] = "src/cosy/tool/graphinfo-binary.lua",
+    ["cosy.tool.graphinfo-test"  ] = "src/cosy/tool/graphinfo-test.lua",
   },
 }

@@ -15,6 +15,7 @@ description = {
 dependencies = {
   "cosy-formalisms",
   "cosy-client",
+  "copas-ev",
 }
 
 build = {

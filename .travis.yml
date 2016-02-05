@@ -21,7 +21,6 @@ install:
   - luarocks install busted
   - luarocks install luacov
   - luarocks install luacov-coveralls
-  - luarocks install copas-ev
   - luarocks make rockspec/*-master-1.rockspec
 
 script:

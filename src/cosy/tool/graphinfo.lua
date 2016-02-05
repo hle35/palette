@@ -4,6 +4,7 @@ return function (Layer)
   local meta    = Layer.key.meta
   local refines = Layer.key.refines
   local tool    = Layer.require "cosy/formalism/tool"
+  local graph   = Layer.require "cosy/formalism/graph"
 
   local graphinfo = Layer.new {
     name = "cosy/tool/graphinfo",
@@ -25,6 +26,7 @@ return function (Layer)
     name        = "graph",
     description = "graph to analyze",
     default     = nil,
+    type        = graph,
   }
 
   graphinfo.run = function (options)

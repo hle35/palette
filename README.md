@@ -64,9 +64,7 @@ one calls the `wc` command to compute its result.
 Results are usually put within the tool model.
 `cosy-tool` dumps this model to allow you to look at it.
 
-## How to write a tool
-
-To write a tool wrapper, start by forking this repository.
+## Tutorial
 
 A tool is represented in CosyVerif using a formalism that refines the
 `cosy/formalism/tool` one
@@ -74,8 +72,113 @@ A tool is represented in CosyVerif using a formalism that refines the
 To learn more on formalisms, consult their
 [README](https://github.com/CosyVerif/formalisms).
 
-A cosy tool describes is basically a textual description of its purpose
-and its parameter(s), each one with a name, a description, an optional default
-value and a type.
-The type is either a string corresponding to a Lua type ("string", "number",
-"boolean", "function") or a reference to another formalism.
+So, first write the skeleton of your tool, that should look like below.
+It declares a new formalism named `myuser/myproject/mytool`.
+Naming should follow this pattern, as it corresponds to a valid identifier
+in the CosyVerif platform.
+
+Its translation into the file system requires that your tool is put in file
+`myuser/myproject/mytool.lua` (or `myuser/myproject/mytool/init.lua`).
+See [require function](http://www.lua.org/pil/8.1.html) for deeper explanations.
+
+```lua
+return function (Layer)
+
+  local checks  = Layer.key.checks
+  local default = Layer.key.default
+  local labels  = Layer.key.labels
+  local meta    = Layer.key.meta
+  local refines = Layer.key.refines
+
+  local mytool = Layer.new {
+    name = "myuser/myproject/mytool",
+  }
+
+  mytool [labels] = {
+    ["myuser/myproject/mytool"] = true
+  }
+  local _ = Layer.reference "myuser/myproject/mytool"
+
+  ...
+
+  return mytool
+
+end
+```
+
+Your tool **must** refine the `cosy/formalism/tool` formalism.
+So, put the following lines within the `...`.
+Of course, your tool can also refine another formalism or model.
+In that case, feel free to add them to the `refines` list.
+
+```lua
+  local tool = Layer.require "cosy/formalism/tool"
+  mytool [refines] = {
+    tool,
+  }
+```
+
+The next step is to describe your tool.
+You should give a textual description to your tool by adding a `description`
+field. Currently, there is no support for internationalization, but we will
+provide some in future versions.
+
+```lua
+  mytool.description = "The coolest tool in the universe!"
+```
+
+We can now define the parameters of the tool.
+A parameter is simply a part of the formalism that refines
+`_ [meta].parameter_type`.
+They can be at the root, or anywhere within the hierarchical structure of the
+tool description.
+A parameter has the following description.
+
+```lua
+  mytool.myparameter = {
+    [refines]   = { _ [meta].parameter_type },
+    name        = "myparameter",
+    description = "the coolest parameter in the universe",
+    type        = "boolean",
+    default     = true,
+  }
+```
+
+The `type` fields describes the parameter type.
+It can be either a string representing a primitive type
+(``"boolean"``, ``"number"``, ``"string"``, ``"function"``) or a reference
+to a formalism or a part of it.
+In the latter case, the effective parameter must refine the given `type`.
+
+The `default` field gives a default value to the parameter.
+It can be undefined by having value `nil` or being absent.
+
+After defining its parameters, we can define the tool behavior.
+It is given in a function, called `run`, that takes one table as argument.
+This table contains the following fields:
+
+* `model` contains an instance of the tool, where parameters have been replaced
+by their effective values;
+* `scheduler` is a scheduler allowing to run commands or create threads.
+
+Tools should not output their results. Instead, they should update the `model`
+with computed results.
+Putting all results within the model allows to easily reuse them later as input
+for other tools.
+
+***
+
+Now that we have described our tool, we can run it in the command-line.
+To do so, make sure that your sources are accessible using the `LUA_PATH`
+environment variable. Then run:
+
+```lua
+$ cosy-tool myuser/myproject/mytool --help
+```
+
+All parameters should now appear as options.
+You can give values for primitive types like `myparam=true`,
+whereas formalisms or models are given by typing their module name,
+for instance `myparam=cosy/formalism/graph`.
+Don't worry, they are given in the correct type (and already loaded and parsed)
+in the `run` function.

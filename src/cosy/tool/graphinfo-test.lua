@@ -5,13 +5,13 @@ return function (Layer)
   local graph   = Layer.require "cosy/formalism/graph"
 
   local instance = Layer.new {
-    name = "cosy/tool/graphinfo.test",
+    name = "cosy/tool/graphinfo-test",
   }
 
   instance [labels] = {
-    ["cosy/tool/graphinfo.test"] = true
+    ["cosy/tool/graphinfo-test"] = true
   }
-  local _ = Layer.reference "cosy/tool/graphinfo.test"
+  local _ = Layer.reference "cosy/tool/graphinfo-test"
 
   instance [refines] = {
     graph

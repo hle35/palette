@@ -91,7 +91,7 @@ Its translation into the file system requires that your tool is put in file
 See [require function](http://www.lua.org/pil/8.1.html) for deeper explanations.
 
 ```lua
-return function (Layer)
+return function (Layer, mytool, ref)
 
   local checks  = Layer.key.checks
   local default = Layer.key.default
@@ -99,18 +99,7 @@ return function (Layer)
   local meta    = Layer.key.meta
   local refines = Layer.key.refines
 
-  local mytool = Layer.new {
-    name = "myuser/myproject/mytool",
-  }
-
-  mytool [labels] = {
-    ["myuser/myproject/mytool"] = true
-  }
-  local _ = Layer.reference "myuser/myproject/mytool"
-
   ...
-
-  return mytool
 
 end
 ```
@@ -150,6 +139,7 @@ A parameter has the following description.
     description = "the coolest parameter in the universe",
     type        = "boolean",
     default     = true,
+    update      = true,
   }
 ```
 
@@ -161,6 +151,11 @@ In the latter case, the effective parameter must refine the given `type`.
 
 The `default` field gives a default value to the parameter.
 It can be undefined by having value `nil` or being absent.
+
+The `update` field is only used when the parameter is another formalism or
+model. This fields states that the parameter will be updatable. If you change
+data within this parameter the original formalism or model will be changed.
+Otherwise, changes will be put in an instance of your tool formalism.
 
 After defining its parameters, we can define the tool behavior.
 It is given in a function, called `run`, that takes one table as argument.

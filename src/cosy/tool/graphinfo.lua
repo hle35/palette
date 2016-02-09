@@ -1,19 +1,9 @@
-return function (Layer)
+return function (Layer, graphinfo, ref)
 
-  local labels  = Layer.key.labels
   local meta    = Layer.key.meta
   local refines = Layer.key.refines
   local tool    = Layer.require "cosy/formalism/tool"
   local graph   = Layer.require "cosy/formalism/graph"
-
-  local graphinfo = Layer.new {
-    name = "cosy/tool/graphinfo",
-  }
-
-  graphinfo [labels] = {
-    ["cosy/tool/graphinfo"] = true
-  }
-  local _ = Layer.reference "cosy/tool/graphinfo"
 
   graphinfo [refines] = {
     tool
@@ -22,11 +12,12 @@ return function (Layer)
   graphinfo.description = "Computes #vertices and #edges of a graph."
 
   graphinfo.graph = {
-    [refines]   = { _ [meta].parameter_type },
+    [refines]   = { ref [meta].parameter_type },
     name        = "graph",
     description = "graph to analyze",
     default     = nil,
     type        = graph,
+    update      = true,
   }
 
   graphinfo.run = function (options)

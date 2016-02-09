@@ -1,17 +1,7 @@
-return function (Layer)
+return function (Layer, instance, ref)
 
-  local labels  = Layer.key.labels
   local refines = Layer.key.refines
   local graph   = Layer.require "cosy/formalism/graph"
-
-  local instance = Layer.new {
-    name = "cosy/tool/graphinfo-test",
-  }
-
-  instance [labels] = {
-    ["cosy/tool/graphinfo-test"] = true
-  }
-  local _ = Layer.reference "cosy/tool/graphinfo-test"
 
   instance [refines] = {
     graph
@@ -24,29 +14,29 @@ return function (Layer)
     d = "d",
     e = "e",
   }
-  instance.edges    = {
+  instance.edges = {
     e1 = {
       arrows = {
-        input  = _.vertices.a,
-        output = _.vertices.b,
+        input  = ref.vertices.a,
+        output = ref.vertices.b,
       }
     },
     e2 = {
       arrows = {
-        input  = _.vertices.b,
-        output = _.vertices.c,
+        input  = ref.vertices.b,
+        output = ref.vertices.c,
       }
     },
     e3 = {
       arrows = {
-        input  = _.vertices.c,
-        output = _.vertices.d,
+        input  = ref.vertices.c,
+        output = ref.vertices.d,
       }
     },
     e4 = {
       arrows = {
-        input  = _.vertices.d,
-        output = _.vertices.e,
+        input  = ref.vertices.d,
+        output = ref.vertices.e,
       }
     },
   }

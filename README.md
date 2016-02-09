@@ -19,6 +19,15 @@ This module is available in [luarocks](https://luarocks.org):
     luarocks install cosy-graphinfo
 ```
 
+If you do not have a Lua installation, you can use
+[hererocks](https://github.com/mpeterv/hererocks):
+
+```sh
+  (install python pip)
+  pip install hererocks
+  hererocks lua_install -r^ --lua=5.2
+```
+
 ## Usage
 
 Running a tool is performed using the `cosy-tool` command, automatically

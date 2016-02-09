@@ -17,6 +17,7 @@ return function (Layer, graphinfo, ref)
     description = "graph to analyze",
     default     = nil,
     type        = graph,
+    update      = true,
   }
 
   graphinfo.run = function (options)

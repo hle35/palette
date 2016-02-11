@@ -17,26 +17,34 @@ return function (Layer, instance, ref)
   instance.edges = {
     e1 = {
       arrows = {
-        input  = ref.vertices.a,
-        output = ref.vertices.b,
+        { vertex = ref.vertices.a,
+          input  = true },
+        { vertex = ref.vertices.b,
+          output = true },
       }
     },
     e2 = {
       arrows = {
-        input  = ref.vertices.b,
-        output = ref.vertices.c,
+        { vertex = ref.vertices.b,
+          input  = true },
+        { vertex = ref.vertices.c,
+          output = true },
       }
     },
     e3 = {
       arrows = {
-        input  = ref.vertices.c,
-        output = ref.vertices.d,
+        { vertex = ref.vertices.c,
+          input  = true },
+        { vertex = ref.vertices.d,
+          output = true },
       }
     },
     e4 = {
       arrows = {
-        input  = ref.vertices.d,
-        output = ref.vertices.e,
+        { vertex = ref.vertices.d,
+          input  = true },
+        { vertex = ref.vertices.e,
+          output = true },
       }
     },
   }

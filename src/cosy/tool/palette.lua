@@ -24,6 +24,10 @@ return function (Layer, palette, ref)
     local model = options.model.graph
     model.nb_vertices = 0
     model.nb_edges    = 0
+    for key, value in pairs (model [meta]) do
+      print ("#key:", key)
+      print ("#value:", value)
+    end
     for _ in pairs (model.vertices) do
       model.nb_vertices = model.nb_vertices+1
     end

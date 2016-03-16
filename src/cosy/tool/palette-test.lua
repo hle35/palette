@@ -15,7 +15,8 @@ return function (Layer, instance, ref)
                                                           "  <marker id=\"mTriangle\" markerWidth=\"5\" markerHeight=\"10\"" ..
                                                           "    refX=\"5\" refY=\"5\" orient=\"auto\">" ..
                                                           "    <path d=\"M 0 0 5 5 0 10 Z\" style=\"fill: black;\"/>" ..
-                                                          "  </marker><!-- arrow svg -->"
+                                                          "  </marker>" ..
+                                                          "</defs><!-- arrow svg -->"
 
 
   instance.vertices = {

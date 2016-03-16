@@ -42,10 +42,21 @@ return function (Layer, palette, ref)
       end
     end
     -- remove every ancestors from candidates
-    for key3, value3 in pairs (ancestors) do
+    for key3, _ in pairs (ancestors) do
 	candidates [ key3 ] = nil ;
     end
-    print ("candidates:")
+    print ("Temporary candidates:")
+    for k,v in pairs(candidates) do print(k,v) end
+    -- remove items not descendant from edge nor vertex
+    for key4, _ in pairs (candidates) do
+      if (( model [meta].vertex_type <= key4 ) or ( model [meta].edge_type   <= key4 )) then
+        print ("keeping descendant ", key4)
+      else
+        print ("removing not descendant ", key4)
+	candidates [ key4 ] = nil ;
+      end
+    end
+    print ("Final candidates:")
     for k,v in pairs(candidates) do print(k,v) end
 
     ----------------------

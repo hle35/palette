@@ -1,11 +1,18 @@
 return function (Layer, instance, ref)
 
+  local meta    = Layer.key.meta
   local refines = Layer.key.refines
   local graph   = Layer.require "cosy/formalism/graph"
 
   instance [refines] = {
     graph
   }
+
+  -- SVG rendering definition inside the model not the formalism
+  instance [meta].vertex_type.rendering = "svg vertex"
+  instance [meta].edge_type.rendering = "svg edge"
+  instance [meta].edge_type [meta].arrow_type.rendering = "svg arrow"
+
 
   instance.vertices = {
     a = "a",

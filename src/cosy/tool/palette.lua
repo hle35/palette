@@ -51,6 +51,7 @@ return function (Layer, palette, ref)
     for key4, _ in pairs (candidates) do
       if (( model [meta].vertex_type <= key4 ) or ( model [meta].edge_type   <= key4 )) then
         print ("keeping descendant ", key4)
+        print (" which has rendering ", key4.rendering)
       else
         print ("removing not descendant ", key4)
 	candidates [ key4 ] = nil ;

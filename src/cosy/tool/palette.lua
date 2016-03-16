@@ -57,8 +57,10 @@ return function (Layer, palette, ref)
 	candidates [ key4 ] = nil ;
       end
     end
-    print ("Final candidates:")
-    for k,v in pairs(candidates) do print(k,v) end
+    print ("Palette content:")
+    for k,_ in pairs(candidates) do
+      print(k," which has rendering ", k.rendering)
+    end
 
     ----------------------
     for _ in pairs (model.vertices) do

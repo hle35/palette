@@ -9,9 +9,13 @@ return function (Layer, instance, ref)
   }
 
   -- SVG rendering definition inside the model not the formalism
-  instance [meta].vertex_type.rendering = "svg vertex"
-  instance [meta].edge_type.rendering = "svg edge"
-  instance [meta].edge_type [meta].arrow_type.rendering = "svg arrow"
+  instance [meta].vertex_type.rendering = "<circle cx='50' cy='50' r='40' stroke='black'  stroke-width='3' fill='black' /> <!-- vertex svg-->" 
+  instance [meta].edge_type.rendering   = "<path d='m 50, 150 q -50 50 0 150'  style=\"marker-end: url(#mTriangle); fill: none; stroke: blue;\"/> <!-- edge svg -->" 
+  instance [meta].edge_type [meta].arrow_type.rendering = "<defs> <!-- definition of a triangle extremity of the arrows  -->" ..
+                                                          "  <marker id=\"mTriangle\" markerWidth=\"5\" markerHeight=\"10\"" ..
+                                                          "    refX=\"5\" refY=\"5\" orient=\"auto\">" ..
+                                                          "    <path d=\"M 0 0 5 5 0 10 Z\" style=\"fill: black;\"/>" ..
+                                                          "  </marker><!-- arrow svg -->"
 
 
   instance.vertices = {

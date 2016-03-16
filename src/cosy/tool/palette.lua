@@ -4,7 +4,7 @@ return function (Layer, palette, ref)
   local refines = Layer.key.refines
   local tool    = Layer.require "cosy/formalism/tool"
   local graph   = Layer.require "cosy/formalism/graph"
-
+ 
   palette [refines] = {
     tool
   }
@@ -24,10 +24,31 @@ return function (Layer, palette, ref)
     local model = options.model.graph
     model.nb_vertices = 0
     model.nb_edges    = 0
-    for key, value in pairs (model [meta]) do
-      print ("#key:", key)
-      print ("#value:", value)
+    local ancestors   = {}
+    local candidates  = {}
+    for key1, value1 in pairs (model [meta]) do
+      print ("#key1:", key1)
+      print ("#value1:", value1)
+      for key2, value2 in pairs (model [meta]) do
+        print ("#key2:", key2)
+        print ("#value2:", value2)
+        if value1 < value2 then  -- value1 is an ancestor of value2 
+          ancestors [ value1 ] = true ;
+          print ("ancestor  #value1:", value1)
+        else
+          candidates [ value1 ] = true ;
+          print ("candidate  #value1:", value1)
+        end
+      end
     end
+    -- remove every ancestors from candidates
+    for key3, value3 in pairs (ancestors) do
+	candidates [ key3 ] = nil ;
+    end
+    print ("candidates:")
+    for k,v in pairs(candidates) do print(k,v) end
+
+    ----------------------
     for _ in pairs (model.vertices) do
       model.nb_vertices = model.nb_vertices+1
     end

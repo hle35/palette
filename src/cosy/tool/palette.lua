@@ -57,8 +57,16 @@ return function (Layer, palette, ref)
 	candidates [ key4 ] = nil ;
       end
     end
+    -- adding select and delete and title
+    local title = {["title"] = "Palette", ["rendering"] = "<text x=\"40\" y=\"15\" fill=\"black\" font-weight=\"bold\">Palette</text>", } ;
+    local select_ = {["name"] = "select", ["rendering"] = "<text x=\"20\" y=\"40\" fill=\"blue\">select</text>", } ;
+    local delete = {["name"] = "delete", ["rendering"] = "<text x=\"20\" y=\"70\" fill=\"red\">delete</text>", } ;
+    candidates [ title ] = true ;
+    candidates [ select_ ] = true ;
+    candidates [ delete ] = true ;
+    local lapalette = candidates
     print ("Palette content:")
-    for k,_ in pairs(candidates) do
+    for k,_ in pairs(lapalette) do
       print(k," which has rendering ", k.rendering)
       if (k == model [meta].edge_type ) then
         print("\tand sub key arrow_type which has rendering ", k[meta].arrow_type.rendering )
@@ -75,7 +83,7 @@ return function (Layer, palette, ref)
     print ("<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n</head>\n<body>")
     print ("<svg width=\"800px\" height=\"800px\" viewbox=\"0 0 800 800\">")
     print(model [meta].edge_type[meta].arrow_type.rendering)
-    for k,_ in pairs(candidates) do
+    for k,_ in pairs(lapalette) do
       print(k.rendering)
     end
     print ("</svg>")

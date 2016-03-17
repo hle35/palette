@@ -60,7 +60,26 @@ return function (Layer, palette, ref)
     print ("Palette content:")
     for k,_ in pairs(candidates) do
       print(k," which has rendering ", k.rendering)
+      if (k == model [meta].edge_type ) then
+        print("\tand sub key arrow_type which has rendering ", k[meta].arrow_type.rendering )
+      end
+      if (type(k) == "table") then
+        for key5, value5 in pairs (k) do
+          if (key5 ~= "renderingggggggg") then
+            print("\tand sub #key5:", key5," and #value5:", value5 )
+          end
+        end
+      end
     end
+    -- display svg palette
+    print ("<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n</head>\n<body>")
+    print ("<svg width=\"800px\" height=\"800px\" viewbox=\"0 0 800 800\">")
+    print(model [meta].edge_type[meta].arrow_type.rendering)
+    for k,_ in pairs(candidates) do
+      print(k.rendering)
+    end
+    print ("</svg>")
+    print ("</body>\n</html>")
 
     ----------------------
     for _ in pairs (model.vertices) do

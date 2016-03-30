@@ -213,6 +213,14 @@ end
     render_end_option_form = function ()
       print ("snippet to end options pane")
     end,
+    render_option_editable_number = function (opt)
+      assert(opt.type == "number")
+      print ("a form for number " , opt.name)
+    end,
+    render_option_editable_boolean = function (opt)
+      assert(opt.type == "boolean")
+      print ("a form for boolean " , opt.name)
+    end,
     render = function (options)
       print ("render options pane")
       optionsdisplay.options.render_start_option_form() 
@@ -228,9 +236,15 @@ end
         --print(type(v))
         if (type(v) == "table") then -- not a function : so it is an option
           if (v.render ~= nil ) then
-            v:render()  
+            v:render()
           else
-            print("no rendering")
+            if v.type == "number" then
+              optionsdisplay.options.render_option_editable_number(v)
+            elseif v.type == "boolean" then
+              optionsdisplay.options.render_option_editable_boolean(v)
+            else
+              print("no rendering")
+            end
           end
         end
       end

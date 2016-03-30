@@ -81,29 +81,32 @@ end
     graph = {
       [refines]   = { ref [meta].parameter_type },
       name        = "graph",
+      key         = "graph",
       description = "graph to analyze",
       default     = nil,
       type        = graph,
       update      = true,
-      render      = function (graph)
-        print ("render graph option ", graph.description)
+      render      = function (opt)
+        print ("render ", opt.name, opt.key, " option ", opt.description)
       end,
     },
     depth_limit = {
       [refines]   = { ref [meta].parameter_type },
       name        = "Depth limit", 
+      key         = "depth_limit", 
       description = "Maximum depth of the state space.",
       default     = 100,
       type        = "number",
       update      = true,
-      render      = function (depth_limit)
-        print ("render depth_limit option ", depth_limit.description)
+      render      = function (opt)
+        print ("render ", opt.name, opt.key, " option ", opt.description)
       end,
     },
 --[[
     states_limit = {
       [refines]   = { ref [meta].parameter_type },
       name        = "States limit",
+      key         = "states_limit",
       description = "Maximum number of states to explore.",
       default     = 10000,
       type        = "number",
@@ -112,6 +115,7 @@ end
     time_limit = {
       [refines]   = { ref [meta].parameter_type },
       name        = "Time limit",
+      key         = "time_limit",
       description = "Maximum execution time (in seconds).",
       default     = 60,
       type        = "number",
@@ -120,6 +124,7 @@ end
     imk = {
       [refines]   = { ref [meta].parameter_type },
       name        = "IMK",
+      key         = "imk",
       description = "Algorithm IMoriginal [AS11].",
       default     = false,
       type        = "boolean",
@@ -128,6 +133,7 @@ end
     imunion = {
       [refines]   = { ref [meta].parameter_type },
       name        = "IMunion",
+      key         = "imunion",
       description = "Algorithm IMUnion [AS11].",
       default     = false,
       type        = "boolean",
@@ -136,6 +142,7 @@ end
     random_selection = {
       [refines]   = { ref [meta].parameter_type },
       name        = "Random selection",
+      key         = "random_selection",
       description = "Random selection of the pi-incompatible to be negated.",
       default     = true,
       type        = "boolean",
@@ -144,6 +151,7 @@ end
     dynamic_elimination = {
       [refines]   = { ref [meta].parameter_type },
       name        = "Dynamic elimination",
+      key         = "dynamic_elimination",
       description = "Dynamic clock elimination [And13].",
       default     = false,
       type        = "boolean",
@@ -152,6 +160,7 @@ end
     inclusion_check = {
       [refines]   = { ref [meta].parameter_type },
       name        = "Inclusion check",
+      key         = "inclusion_check",
       description = "Fixpoint by inclusion check instead of equality check.",
       default     = false,
       type        = "boolean",
@@ -161,34 +170,37 @@ end
     merge_states = {
       [refines]   = { ref [meta].parameter_type },
       name        = "Merge states",
+      key         = "merge_states", 
       description = "Convex state merging [AFS13].",
       default     = false,
       type        = "boolean",
       update      = true,
       render      = function (opt)
-        print ("render ", opt.name, " option ", opt.description)
+        print ("render ", opt.name, opt.key, " option ", opt.description)
       end,
     },
     output_states_description = {
       [refines]   = { ref [meta].parameter_type },
       name        = "Output states description",
+      key         = "output_states_description",
       description = "Return a textual description of all symbolic states.",
       default     = true,
       type        = "boolean",
       update      = true,
       render      = function (opt)
-        print ("render ", opt.name, " option ", opt.description)  -- opt.key nil ?
+        print ("render ", opt.name, opt.key, " option ", opt.description)
       end,
     },
---[[
     output_trace_set = {
       [refines]   = { ref [meta].parameter_type },
       name        = "Output trace set",
+      key         = "output_trace_set",
       description = "Return the trace set in a graphical form.",
       default     = true,
       type        = "boolean",
       update      = true,
     },
+--[[
 --]]
 
 
@@ -215,8 +227,11 @@ end
         --print(type(k))
         --print(type(v))
         if (type(v) == "table") then -- not a function : so it is an option
-          --v.render()
-          v:render()
+          if (v.render ~= nil ) then
+            v:render()  
+          else
+            print("no rendering")
+          end
         end
       end
       optionsdisplay.options.render_end_option_form() 

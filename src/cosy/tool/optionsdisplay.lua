@@ -132,7 +132,7 @@ Graphical cartography: "Return the cartography in a graphical form projected ont
     tool
   }
 
-  optionsdisplay.description = "Computes #vertices and #edges of a graph."
+  optionsdisplay.description = "This is a POC to add options to a tool an add every option an HTML rendering."
 
   optionsdisplay[meta] = {
     boolean_parameter = {

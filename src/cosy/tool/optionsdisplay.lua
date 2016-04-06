@@ -134,21 +134,7 @@ Graphical cartography: "Return the cartography in a graphical form projected ont
 
   optionsdisplay.description = "Computes #vertices and #edges of a graph."
 
-  optionsdisplay.options = {
-    -- options of the service
-    graph = {
-      [refines]   = { ref [meta].parameter_type },
-      name        = "graph",
-      key         = "graph",
-      description = "graph to analyze",
-      default     = nil,
-      type        = graph,
-      update      = true,
-      render      = function (opt)
-        --print ("specific_rendering_for_graph ", opt.name, opt.key, " option ", opt.description)
-        return "specific_rendering_for_graph " .. opt.name .. " " .. opt.key .. " option " .. opt.description
-      end,
-    },
+  optionsdisplay[meta] = {
     boolean_parameter = {
       [refines] = { ref [meta].parameter_type },
       render    = function (opt)
@@ -159,7 +145,9 @@ Graphical cartography: "Return the cartography in a graphical form projected ont
         local html = ""
         html = html .. "<div class=\"form-group\">"
         html = html .. "<div class=\"controls\">"
-        html = html .. "<label class=\"control-label col-sm-2\">" .. opt.name .. "</label> <input  class=\"col-sm-1\" type=\"checkbox\"" name=\"" .. opt.key .. "\"  id=\"" .. opt.key .. "\"  .. checked .. "/>"
+--[[
+--]]
+        html = html .. "<label class=\"control-label col-sm-2\">" .. opt.name .. "</label> <input  class=\"col-sm-1\" type=\"checkbox\" name=\"" .. opt.key .. "\"  id=\"" .. opt.key .. "\" "  .. checked .. "/>"
         html = html .. "</div>"
         html = html .. "<span class=\"glyphicon glyphicon-info-sign\" data-toggle=\"tooltip\" title=\"" .. opt.description .."\"></span>"
         html = html .. "</div>"
@@ -167,8 +155,6 @@ Graphical cartography: "Return the cartography in a graphical form projected ont
       end,
       type        = "boolean",
     },
---[[
---]]
     number_parameter = {
       [refines] = { ref [meta].parameter_type },
       render    = function (opt)
@@ -187,22 +173,39 @@ Graphical cartography: "Return the cartography in a graphical form projected ont
       end,
       type        = "number",
     },
+  }
+
+  optionsdisplay.options = {
+    -- options of the service
+    graph = {
+      [refines]   = { ref [meta].parameter_type },
+      name        = "graph",
+      key         = "graph",
+      description = "graph to analyze",
+      default     = nil,
+      type        = graph,
+      update      = true,
+      render      = function (opt)
+        --print ("specific_rendering_for_graph ", opt.name, opt.key, " option ", opt.description)
+        return "specific_rendering_for_graph " .. opt.name .. " " .. opt.key .. " option " .. opt.description
+      end,
+    },
     depth_limit = {
-      [refines]   = { ref.options.number_parameter },
+      [refines]   = { ref [meta].number_parameter },
       name        = "Depth limit",
       key         = "depth_limit",
       description = "Maximum depth of the state space.",
       default     = 100,
     },
     states_limit = {
-      [refines]   = { ref.options.number_parameter },
+      [refines]   = { ref [meta].number_parameter },
       name        = "States limit",
       key         = "states_limit",
       description = "Maximum number of states to explore.",
       default     = 10000,
     },
     time_limit = {
-      [refines]   = { ref.options.number_parameter },
+      [refines]   = { ref [meta].number_parameter },
       name        = "Time limit",
       key         = "time_limit",
       description = "Maximum execution time (in seconds).",
@@ -211,56 +214,56 @@ Graphical cartography: "Return the cartography in a graphical form projected ont
 --[[
 --]]
     imk = {
-      [refines]   = { ref.options.boolean_parameter },
+      [refines]   = { ref [meta].boolean_parameter },
       name        = "IMK",
       key         = "imk",
       description = "Algorithm IMoriginal [AS11].",
       default     = false,
     },
     imunion = {
-      [refines]   = { ref.options.boolean_parameter },
+      [refines]   = { ref [meta].boolean_parameter },
       name        = "IMunion",
       key         = "imunion",
       description = "Algorithm IMUnion [AS11].",
       default     = false,
     },
     random_selection = {
-      [refines]   = { ref.options.boolean_parameter },
+      [refines]   = { ref [meta].boolean_parameter },
       name        = "Random selection",
       key         = "random_selection",
       description = "Random selection of the pi-incompatible to be negated.",
       default     = true,
     },
     dynamic_elimination = {
-      [refines]   = { ref.options.boolean_parameter },
+      [refines]   = { ref [meta].boolean_parameter },
       name        = "Dynamic elimination",
       key         = "dynamic_elimination",
       description = "Dynamic clock elimination [And13].",
       default     = false,
     },
     inclusion_check = {
-      [refines]   = { ref.options.boolean_parameter },
+      [refines]   = { ref [meta].boolean_parameter },
       name        = "Inclusion check",
       key         = "inclusion_check",
       description = "Fixpoint by inclusion check instead of equality check.",
       default     = false,
     },
     merge_states = {
-      [refines]   = { ref.options.boolean_parameter },
+      [refines]   = { ref [meta].boolean_parameter },
       name        = "Merge states",
       key         = "merge_states", 
       description = "Convex state merging [AFS13].",
-      default     = true,
+      default     = false,
     },
     output_states_description = {
-      [refines]   = { ref.options.boolean_parameter },
+      [refines]   = { ref [meta].boolean_parameter },
       name        = "Output states description",
       key         = "output_states_description",
       description = "Return a textual description of all symbolic states.",
       default     = true,
     },
     output_trace_set = {
-      [refines]   = { ref.options.boolean_parameter },
+      [refines]   = { ref [meta].boolean_parameter },
       name        = "Output trace set",
       key         = "output_trace_set",
       description = "Return the trace set in a graphical form.",
@@ -275,7 +278,8 @@ Graphical cartography: "Return the cartography in a graphical form projected ont
       local html = ""
       html = html .. "<div class=\"container\">"
       html = html .. "<h2 >Options (IM Layout)</h2>"
-      html = html .. "<form class=\"form-horizontal\" role=\"form\">"
+      html = html .. "<form class=\"form-horizontal\" role=\"form\" id=\"optionsform\" action=\"show_im_options.html\" method=\"get\">"
+      --html = html .. "<form class=\"form-horizontal\" role=\"form\">"
       return html
 --[[
   </form>
@@ -357,7 +361,7 @@ Graphical cartography: "Return the cartography in a graphical form projected ont
     for _ in pairs (model.edges) do
       model.nb_edges = model.nb_edges+1
     end
-    print ("version 0.04")
+    print ("version 0.05")
     print ("#vertices:", model.nb_vertices)
     print ("#edges   :", model.nb_edges   )
   end

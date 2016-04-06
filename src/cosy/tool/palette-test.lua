@@ -9,7 +9,9 @@ return function (Layer, instance, ref)
   }
 
   -- SVG rendering definition inside the model not the formalism
+  instance [meta].vertex_type.shouldBeInPalette = true 
   instance [meta].vertex_type.rendering = "<circle cx='50' cy='130' r='40' stroke='black'  stroke-width='3' fill='black' /> <!-- vertex svg-->" 
+  instance [meta].edge_type.shouldBeInPalette = true 
   instance [meta].edge_type.rendering   = "<path d='m 50, 200 q -50 50 0 150'  style=\"marker-end: url(#mTriangle); fill: none; stroke: blue;\"/> <!-- edge svg -->" 
   instance [meta].edge_type [meta].arrow_type.rendering = "<defs> <!-- definition of a triangle extremity of the arrows  -->" ..
                                                           "  <marker id=\"mTriangle\" markerWidth=\"5\" markerHeight=\"10\"" ..
